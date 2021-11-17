@@ -40,4 +40,4 @@ jobs:
         PYTHONPATH=. pytest
     - name: Static type checker with mypy
       run: |
-        mypy --strict sample/
+        mypy --strict lang_lisp_python/
