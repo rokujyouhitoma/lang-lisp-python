@@ -18,6 +18,26 @@ class Expression:
 
 
 @dataclass
+class Bool(Expression):
+    value: bool
+
+
+@dataclass
+class Symbol(Expression):
+    value: str
+
+
+@dataclass
+class Number(Expression):
+    value: int
+
+
+@dataclass
+class List(Expression):
+    value: typing.List[Expression]
+
+
+@dataclass
 class Env:
     data: typing.Dict[str, Expression]
     outer: typing.Optional[Expression]
