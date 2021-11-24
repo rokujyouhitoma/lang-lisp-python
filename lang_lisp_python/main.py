@@ -38,6 +38,12 @@ class List(Expression):
 
 
 @dataclass
+class Func(Expression):
+    params_exp: Expression
+    body_exp: Expression
+
+
+@dataclass
 class Env:
     data: typing.Dict[str, Expression]
     outer: typing.Optional[Expression]
