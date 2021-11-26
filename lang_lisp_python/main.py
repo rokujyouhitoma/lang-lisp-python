@@ -1,5 +1,6 @@
 import typing
 from dataclasses import dataclass
+from enum import Enum
 
 @dataclass
 class Err:
@@ -47,6 +48,10 @@ class Func(Expression):
 class Lambda(Expression):
     params_exp: Expression
     body_exp: Expression
+
+
+class Exp(Enum):
+    Bool: Bool
 
 
 @dataclass
