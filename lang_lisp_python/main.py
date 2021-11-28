@@ -52,6 +52,8 @@ class Lambda(Expression):
 
 class Exp(Enum):
     Bool: Bool
+    Symbol: Symbol
+    Number: Number
 
 
 @dataclass
