@@ -67,6 +67,10 @@ def default_env():
     return Env(data, None)
 
 
+def Ok(value):
+    return Result(value, None)
+
+
 def tokenize(expr: str) -> typing.Sequence[str]:
     return [c for c in expr.replace("(", " ( ").replace(")", " ) ").split(" ") if c != ""]
 
