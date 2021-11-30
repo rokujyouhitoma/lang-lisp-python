@@ -54,6 +54,9 @@ class Exp(Enum):
     Bool: Bool
     Symbol: Symbol
     Number: Number
+    List: List
+    Func: Func
+    Lambda: Lambda
 
 
 @dataclass
