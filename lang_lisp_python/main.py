@@ -238,19 +238,19 @@ def read_expr() -> str:
 
 def main():
     env = default_env();
-    # while True:
-    #     print("lisp > ", end="")
-    #     expr = read_expr()
-    #     result = parse_eval(expr, env).value
-    #     print(result)
+    while True:
+        print("lisp > ", end="")
+        expr = read_expr()
+        result = parse_eval(expr, env).value
+        print(result)
     #result = parse_eval("(1 2)", env).value
     #result = parse_eval("(def f 1)", env).value
     #result = parse_eval("f", env).value
-    q = "(def add-one (fn (a) (+ 1 a)))"
-    result = parse_eval(q, env).value
-    result = parse_eval("(add-one 1)", env).value
-    print(result)
-    print(env)
+    #q = "(def add-one (fn (a) (+ 1 a)))"
+    #result = parse_eval(q, env).value
+    #result = parse_eval("(add-one 1)", env).value
+    #print(result)
+    #print(env)
 
 
 if __name__ == "__main__":
