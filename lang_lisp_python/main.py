@@ -232,7 +232,7 @@ def parse_eval(expr: str, env: Env) -> Result:
     return Result(evaled_exp, None)
 
 
-def read_expr() -> str:
+def input_expr() -> str:
     return input()
 
 
@@ -240,7 +240,7 @@ def main():
     env = default_env();
     while True:
         print("lisp > ", end="")
-        expr = read_expr()
+        expr = input_expr()
         result = parse_eval(expr, env).value
         print(result)
 
