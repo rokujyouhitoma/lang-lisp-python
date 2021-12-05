@@ -242,8 +242,11 @@ def main():
         print("lisp > ", end="")
         expr = input_expr()
         result = parse_eval(expr, env).value
+        # TODO
         if result:
-            print(f"-> {result}")
+            print(f"-> {result.value}")
+        else:
+            print(f"-> {result.err}")
 
 
 if __name__ == "__main__":
