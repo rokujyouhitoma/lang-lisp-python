@@ -241,9 +241,9 @@ def main():
     while True:
         print("lisp > ", end="")
         expr = input_expr()
-        result = parse_eval(expr, env).value
+        result = parse_eval(expr, env)
         # TODO
-        if result:
+        if result.value:
             print(f"-> {result.value}")
         else:
             print(f"-> {result.err}")
