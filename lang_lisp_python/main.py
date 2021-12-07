@@ -1,3 +1,4 @@
+import sys
 import typing
 from dataclasses import dataclass
 from enum import Enum
@@ -233,7 +234,12 @@ def parse_eval(expr: str, env: Env) -> Result:
 
 
 def input_expr() -> str:
-    return input()
+    try:
+        expr = input()
+    except Exception:
+        print("Failed to read line")
+        sys.exit(1)
+    return expr
 
 
 def main():
