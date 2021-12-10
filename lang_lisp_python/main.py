@@ -1,4 +1,3 @@
-import sys
 import typing
 from dataclasses import dataclass
 from enum import Enum
@@ -23,9 +22,6 @@ class Expression:
 @dataclass
 class Bool(Expression):
     value: bool
-
-    def to_string(self) -> str:
-        return str(self.value)
 
 
 @dataclass
@@ -95,6 +91,7 @@ def read_seq(tokens: typing.Sequence[str]) -> Result:
         (exp, new_xs) = parse(xs).value
         res.append(exp)
         xs = new_xs
+    return xs
 
 
 def env_get(k: str, env: Env):
@@ -237,12 +234,7 @@ def parse_eval(expr: str, env: Env) -> Result:
 
 
 def input_expr() -> str:
-    try:
-        expr = input()
-    except Exception:
-        print("Failed to read line")
-        sys.exit(1)
-    return expr
+    return input()
 
 
 def main():
@@ -250,9 +242,9 @@ def main():
     while True:
         print("lisp > ", end="")
         expr = input_expr()
-        result = parse_eval(expr, env)
+        result = parse_eval(expr, env).value
         # TODO
-        if result.value:
+        if result:
             print(f"-> {result.value}")
         else:
             print(f"-> {result.err}")
