@@ -23,6 +23,9 @@ class Expression:
 class Bool(Expression):
     value: bool
 
+    def to_string(self) -> str:
+        return str(self.value)
+
 
 @dataclass
 class Symbol(Expression):
