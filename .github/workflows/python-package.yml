@@ -36,7 +36,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
     - name: Test with pytest
       run: |
-        PYTHONPATH=. pytest
+        PYTHONPATH=. pytest --cov-fail-under=0
     - name: Static type checker with mypy
       run: |
         mypy --strict lang_lisp_python/
