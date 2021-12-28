@@ -171,7 +171,7 @@ def eval_def_args(arg_forms: typing.Sequence[Expression], env: Env):
     if len(arg_forms) > 2:
         return Err("def can only have two forms")
     second_eval = eval(second_form, env)
-    env.data[first_str.value.value] = second_eval;
+    env.data[first_str.value.value] = second_eval
     return Ok(first_form)
 
 
@@ -231,8 +231,8 @@ def eval(exp: Expression, env: Env) -> Result:
 
 
 def parse_eval(expr: str, env: Env) -> Result:
-    (parsed_exp, _) = parse(tokenize(expr)).value;
-    evaled_exp = eval(parsed_exp, env);
+    (parsed_exp, _) = parse(tokenize(expr)).value
+    evaled_exp = eval(parsed_exp, env)
     return Result(evaled_exp, None)
 
 
@@ -241,7 +241,7 @@ def input_expr() -> str:
 
 
 def main():
-    env = default_env();
+    env = default_env()
     while True:
         print("lisp > ", end="")
         expr = input_expr()
