@@ -79,7 +79,9 @@ def Ok(value):
 
 
 def tokenize(expr: str) -> typing.Sequence[str]:
-    return [c for c in expr.replace("(", " ( ").replace(")", " ) ").split(" ") if c != ""]
+    return [
+        c for c in expr.replace("(", " ( ").replace(")", " ) ").split(" ") if c != ""
+    ]
 
 
 def read_seq(tokens: typing.Sequence[str]) -> Result:
@@ -144,7 +146,9 @@ def parse_list_of_symbol_strings(form: Expression):
 def env_for_lambda(params: Expression, arg_forms: Expression, outer_env: Env):
     ks = parse_list_of_symbol_strings(params)
     if len(ks.value) != len(arg_forms):
-        return Err("expected {} arguments, got {}".format(len(ks.value), len(arg_forms)))
+        return Err(
+            "expected {} arguments, got {}".format(len(ks.value), len(arg_forms))
+        )
     vs = eval_forms(arg_forms, outer_env)
     data = {}
     for k, v in zip(ks, vs):
@@ -188,7 +192,9 @@ def eval_lambda_args(arg_forms: typing.Sequence[Expression], env: Env) -> Result
     return Ok(Lambda(body_exp, params_exp))
 
 
-def eval_built_in_form(exp: Expression, arg_forms: typing.Sequence[Expression], env: Env) -> typing.Optional[Result]:
+def eval_built_in_form(
+    exp: Expression, arg_forms: typing.Sequence[Expression], env: Env
+) -> typing.Optional[Result]:
     if isinstance(exp, Symbol):
         if exp.value == "if":
             return eval_if_args(arg_forms, env)
@@ -220,8 +226,10 @@ def eval(exp: Expression, env: Env) -> Result:
         else:
             first_eval = eval(first_form, env).value
             if isinstance(first_eval, Func):
+
                 def f(v):
                     return v
+
                 return f(eval_forms(arg_forms, env))
             elif isinstance(first_eval, Lambda):
                 new_env = env_for_lambda(first_eval.params_exp, arg_forms, env)
