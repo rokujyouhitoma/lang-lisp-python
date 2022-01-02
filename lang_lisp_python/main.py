@@ -69,11 +69,6 @@ class Env:
     outer: typing.Optional[Expression]
 
 
-def default_env():
-    data = {}
-    return Env(data, None)
-
-
 def Ok(value):
     return Result(value, None)
 
@@ -82,6 +77,18 @@ def tokenize(expr: str) -> typing.Sequence[str]:
     return [
         c for c in expr.replace("(", " ( ").replace(")", " ) ").split(" ") if c != ""
     ]
+
+
+def parse(tokens: typing.Sequence[str]) -> Result:
+    if len(tokens) == 0:
+        return Result(None, Err("could not get token"))
+    token, rest = tokens[0], tokens[1:]
+    if token == "(":
+        return read_seq(rest)
+    elif token == ")":
+        return Result(None, Err("unexpected )"))
+    else:
+        return Result((parse_atom(token), rest), None)
 
 
 def read_seq(tokens: typing.Sequence[str]) -> Result:
@@ -99,18 +106,6 @@ def read_seq(tokens: typing.Sequence[str]) -> Result:
     return xs
 
 
-def env_get(k: str, env: Env):
-    exp = env.data.get(k.value)
-    if exp:
-        return exp
-    else:
-        outer_env = env.outer
-        if outer_env:
-            return env_get(k, outer_env)
-        else:
-            return None
-
-
 def parse_atom(token: str):
     if token == "true":
         return Bool(True)
@@ -123,16 +118,21 @@ def parse_atom(token: str):
         return Symbol(token)
 
 
-def parse(tokens: typing.Sequence[str]) -> Result:
-    if len(tokens) == 0:
-        return Result(None, Err("could not get token"))
-    token, rest = tokens[0], tokens[1:]
-    if token == "(":
-        return read_seq(rest)
-    elif token == ")":
-        return Result(None, Err("unexpected )"))
+    def default_env():
+    data = {}
+    return Env(data, None)
+
+
+def env_get(k: str, env: Env):
+    exp = env.data.get(k.value)
+    if exp:
+        return exp
     else:
-        return Result((parse_atom(token), rest), None)
+        outer_env = env.outer
+        if outer_env:
+            return env_get(k, outer_env)
+        else:
+            return None
 
 
 def eval_forms(arg_forms: Expression, env: Env):
